@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>活动列表</title>
+    <include file="Public/header_source"/>
+    <link href="__PUBLIC__/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox-content">
+            <h5>活动管理</h5>
+            <div>
+                <a  class="btn btn-w-m btn-primary" href="{:U('edit')}"> 
+                        <i class="glyphicon glyphicon" aria-hidden="true">发布活动</i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-title">
+            <h5>活动列表 <small class="m-l-sm">活动列表</small></h5>
+        </div>
+        <!-- Panel Other -->
+        <div class="ibox-content">
+            <form method='get'>
+                <div class="form-group" id="data_5">
+
+                    <div class='col-sm-2'>
+                        <php>
+                            $status_array = array(
+                            array('name'=>'全部','value'=>0),
+                            array('name'=>'报名中','value'=>1),
+                            array('name'=>'已关闭','value'=>2),
+                            array('name'=>'已结束','value'=>3),
+                            );
+                        </php>
+                        <label class="font-noraml">活动状态</label>
+                        <select class='form-control' name='status'>
+                            <foreach name='status_array' item='vo'>
+                                <option value='{$vo[value]}' {:(I('get.status/d') == $vo[value] ? 'selected' : '')}>{$vo['name']}</option>
+                            </foreach>
+                        </select>  
+                    </div>
+
+                    <div class='col-sm-2'>
+                        <label class="font-noraml">比赛主题</label>
+                        <div class=" input-group" >
+                            <input type="text" class="input-sm form-control" name="theme_name" value="{:I('get.theme_name')}">
+                        </div>
+                    </div>
+
+                    <div class='col-sm-3'>
+                        <label class="font-noraml">开始时间</label>
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control" name="start" value="{:I('get.start',date('Y-m-d'))}">
+                            <span class="input-group-addon">到</span>
+                            <input type="text" class="input-sm form-control" name="end" value="{:I('get.end')}">
+                        </div>
+                    </div>
+
+
+
+                    <div class='col-sm-1'>
+                        <label class="font-noraml">　</label>
+                        <button type="submit" class="btn btn-block btn-outline btn-success">搜索</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <!-- Example Events -->
+                    <div class="example-wrap">
+                        <div class="example">
+
+                            <table id="exampleTableEvents" data-mobile-responsive="true" >
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+    <script>
+        $(function () {
+
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+        //2.初始化Button的点击事件
+        /* var oButtonInit = new ButtonInit();
+         oButtonInit.Init(); */
+        $("#data_5 .input-daterange").datepicker({
+        keyboardNavigation: !1,
+                forceParse: !1,
+                autoclose: !0
+        });
+        });
+        var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+        $('#exampleTableEvents').bootstrapTable({
+        url: '{:U("Admin/Activity/index")}', //请求后台的URL（*）
+                method: 'post', //请求方式（*）
+                toolbar: '#exampleTableEventsToolbar', //工具按钮用哪个容器
+                striped: true, //是否显示行间隔色
+                cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true, //是否显示分页（*）
+                sortable: true, //是否启用排序
+                sortOrder: "desc", //排序方式
+                sortName:'id',
+                queryParams: oTableInit.queryParams, //传递参数（*）
+                sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1, //初始化加载第一页，默认第一页
+                pageSize: 10, //每页的记录行数（*）
+                pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true, //是否启用点击选中行
+                //height: 780,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id", //每一行的唯一标识，一般为主键列
+                cardView: false, //是否显示详细视图
+                detailView: false, //是否显示父子表
+                columns: [
+                {
+                        field: 'id',
+                        title: '链接',
+                        formatter:function(value){
+                        return '<a  class="layer-open-url">http://skiing.8848.com/Home/Index/detail/id/' + value + '</a>';
+                        },
+                },
+                 {
+                field: 'theme_name',
+                        title: '活动主题',
+                }, {
+                field: 'site',
+                        title: '活动地点',
+                },{
+                field: 'num',
+                        title: '报名人数',
+                        sortable:true,
+                },{
+                field: 'start_time',
+                        title: '开始时间',
+                        formatter:function(value){
+                        var value = UnixToDate(value, true, 8);
+                        return value;
+                        }
+                }, {
+                field: 'end_time',
+                        title: '结束时间',
+                        formatter:function(value){
+                        var value = UnixToDate(value, true, 8);
+                        return value;
+                        }
+                }, {
+                field: 'create_time',
+                        title: '发布时间',
+                        formatter:function(value){
+                        var value = UnixToDate(value, true, 8);
+                        return value;
+                        }
+                },{
+                  field: 'status',
+                  title: '活动状态',
+                  formatter:function(value,row){
+                      switch(parseInt(value)){
+                          case 1:
+                              return '<span class="text-success">进行中</span>';
+                              break;
+                          case 2:
+                              return '<span class="text-warning">已关闭</span>';
+                              break;
+                          case 3:
+                              return '<span class="text-info">已结束</span>';
+                              break;    
+                      }
+                  }
+                },{
+                field: 'xiangqing',
+                        title: '详情',
+                        formatter:function(_this, value, row, index){
+                        return '<a class="btn btn-success btn-rounded" href="{:U("edit")}?id=' + value.id + '&ptype=1" class="layer-open-url">查看</a>';
+                        },
+                },{
+                field: 'caozuo',
+                        title: '操作',
+                        formatter:function(_this, value, row, index){
+                            if(value.status == 1){
+                                return '<a class="btn btn-primary btn-rounded" href="{:U("edit")}?id=' + value.id + '" class="layer-open-url">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;\n\
+                                    <a class="btn btn-warning btn-rounded closeing" href="javascript:;" data-id="' + value.id + '">关闭</a>&nbsp;&nbsp;&nbsp;&nbsp;\n\
+                                    <a  class="btn btn-danger btn-rounded delete" href="javascript:;" data-id="' + value.id + '" class="layer-open-url ">删除</a>';
+                            }else{
+                                return '<a  class="btn btn-danger btn-rounded delete" href="javascript:;" data-id="' + value.id + '" >删除</a>';
+                            }
+                        
+                        },
+                }
+                ],
+                search: true,
+                showRefresh: true,
+                showToggle: true,
+                showColumns: true,
+                iconSize: "outline",
+                icons: {
+                refresh: "glyphicon-repeat",
+                        toggle: "glyphicon-list-alt",
+                        columns: "glyphicon-list"
+                },
+                //每一行加载执行
+                rowAttributes:function(ret, i){
+                //console.log(ret,i);
+                return;
+                },
+                //请求参数
+                queryParams:function(params){
+                var params = $.extend(params, {:json_encode(I('get.'))} || {})
+                return params;
+                }
+        });
+        };
+        return oTableInit;
+        };
+        $(function(){
+            //应用样式layer-open-url 使用data-url=目标链接
+            $(document).on('click', '.layer-open-url', function(){
+                var url = $(this).data('url');
+                if (url){
+                layer.open({
+                type:2,
+                        title: '信息',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['90%', '90%'],
+                        content: url //iframe的url
+                });
+                }
+            });
+            //删除
+            $(document).on('click', '.delete', function(){
+                    var $table = $("#exampleTableEvents");
+                    var ids = $(this).attr('data-id');
+                    //询问框
+                    layer.confirm('您确定删除选中活动？', {
+                    btn: ['确定', '取消'] //按钮
+                    }, function(){
+                    TP.POST("{:U('removeAll')}", {id:ids}, function(ret){
+                        if(ret.status == 1){
+                            layer.msg(ret.info, {icon: 6, time:500}, function(){
+                                window.location.reload();
+                            });
+                        }else{
+                            layer.msg(ret.info, {icon: 2, time:500});
+                        }
+                        
+                    })
+                    }, function(){
+                    //取消操作
+                    });
+            });
+            
+            //删除
+            $(document).on('click', '.closeing', function(){
+                    var $table = $("#exampleTableEvents");
+                    var ids = $(this).attr('data-id');
+                    //询问框
+                    layer.confirm('您确定关闭选中的活动？', {
+                    btn: ['确定', '取消'] //按钮
+                    }, function(){
+                    TP.POST("{:U('close')}", {id:ids}, function(ret){
+                        layer.msg('关闭成功', {icon: 2, time:500}, function(){
+                            window.location.reload();
+                        });
+                    })
+                    }, function(){
+                    //取消操作
+                    });
+            });
+        })
+
+    </script>
+
+</body>
+
+</html>

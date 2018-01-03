@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - 登录</title>
+    <include file="Public/header_source" />
+</head>
+
+<body class="gray-bg" style="background: #00C1B3 url('__PUBLIC__/images/login_bg.jpg') no-repeat center;">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div class="form-group">
+<!--                    <img width="200px" src="__PUBLIC__/images/che2.jpg">-->
+            </div>
+        <h3 style="font-size: 50px;">户外活动报名</h3>
+        
+        <div>
+           
+
+            <form class="m-t" role="form" id="form" action="{:U('admin/login')}" method='post' onsubmit="return loginSubmit()">
+                 
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="vertify" class="form-control" placeholder="验证码" required="">
+                </div>
+                <div class="form-group">
+                    <img src="{:U('admin/vertify')}" width="100%" onclick="this.src=this.src+'#'" />
+                </div>
+                <input type="submit" class="btn btn-primary block full-width m-b" value="后台登录" />
+
+<!--                <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>-->
+                </p>
+
+            </form>
+        </div>
+    </div>
+    <script>
+        
+        function loginSubmit(){
+            $.ajax({
+                'url':$("#form").attr('action'),
+                'type':'post',
+                'data':$("#form").serializeArray(),
+                'dataType':'json',
+//                'beforeSend':function(){
+//                    layer.load(2);
+//                },
+                'success':function(data){
+                    console.log(data);
+                    layer.closeAll('loading');
+                    if(data.status == 0){
+                        //已经登录跳转
+                        if(data.url){
+                            window.location.href=data.url;
+                            return ;
+                        }
+                        layer.msg(data.msg,{icon:2});
+                        return ;
+                    }
+                    window.location.href=__SITE__+data.url;;
+                }
+            });
+            return false;
+        }
+    </script>
+</body>
+
+</html>

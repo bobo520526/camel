@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="{$detail.theme_name}" name="Keywords">
+        <meta content="{$detail.theme_name}" name="Description">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>{$detail.theme_name}</title>
+        <link type="text/css" href="__PUBLIC__/skiing/css/frameIp.css?31215" rel="stylesheet" />
+        <link type="text/css" href="__PUBLIC__/skiing/css/detail.css" rel="stylesheet" />
+        <script type="text/javascript" src="__PUBLIC__/skiing/js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/skiing/js/layer.mobile-v2.0/layer_mobile/layer.js"></script>
+        <style>
+            .middrn_next{    width: 100%;
+    height: auto;
+    margin-left: 15px;
+    padding: 4px;}
+            
+            
+        </style>
+    </head>
+    <body>
+        <!--顶部图片-->
+        <div class="head_img" style="background-image: url(../../../..{$detail.img}) "></div>
+        <!--金额、标题-->
+        <div class="message">
+            <div class="money"><i>¥</i>{$pricearr.min}<em>~</em> <i>¥</i>{$pricearr.max}</div>
+            <div class="title">{$detail.theme_name}</div>
+        </div>
+        <!--<form  action="{:U('userJoin')}" method="POST">-->
+        <input type='hidden' name="id" value='{$detail.id}' id="actid"/>
+        <input type='hidden' name="attr_id" value='0' id='attract' />
+        <!--比赛选项-->
+        <div class="option">
+            <a class="jump" href="javascript:;" id="jump">
+                <p>比赛选项</p>
+                <em></em>
+            </a>
+            <div class="eject anmition">
+                <div class="eject_sub">
+                    <div class="mask"></div>
+                    <div class="eject_content">
+                        <div class="eject_head">
+                            <p id="chooseprice"><i>¥</i>{$pricearr.min}<em>~</em> <i>¥</i>{$pricearr.max}</p>
+                            <span class="eject_close"></span>
+                        </div>
+                        <div class="eject_main">
+                            <div class="eject_title">比赛选项</div>
+                            <foreach name='attrinfo' item='vo'>
+                                <p data-attrid='{$vo.attr_id}' data-price='{$vo.attr_price}'>{$vo.attr_value}</p>
+                            </foreach>
+                        </div>
+                        <button class="eject_submit">立即报名</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--比赛详情信息-->
+        
+        <div class='detail_message'>
+            <div><em>比赛时间：</em>{$detail.start_time|date='Y.m.d',###}~{$detail.end_time|date='Y.m.d',###}</div>
+            <div><p><em>比赛地点：</em>{$detail.site}</p></div>
+            <div><em>截止报名时间：</em>{$detail.cutoff_time|date='Y.m.d',###}</div>
+        </div>
+        <!--比赛详情-->
+        <div class="middrn_next">客服咨询：1212154545</div>
+        <a class="jump separate" href="#001">
+            <p>比赛详情</p>
+            <em></em>
+        </a>
+      
+        <!--客服-->
+        <a name="001" id="001"></a>
+        <div class="custom">
+            {$detail.content|html_entity_decode}
+        </div>
+        <!--报名-->
+        <div style="width: 100%;height: 50px;"></div>
+        <button class="submit">立即报名</button>
+
+
+        <script>
+            
+            
+            
+            $(".eject_main p").click(function () {
+                $(this).addClass("eject_ok").siblings('p').removeClass("eject_ok");
+                //改变选择的价格
+                var price = $(this).attr('data-price');
+                $("#chooseprice").text('￥' + price);
+                $("#attract").val($(this).attr('data-attrid'));
+            })
+
+            $("#jump,.submit").click(function () {
+                $(".eject").css("bottom", "0%");
+            })
+
+
+	var flag=true;
+			$('.jump').click(function(){
+				if(flag){
+				$('.custom').show();
+				flag=false;
+				}else{
+					$('.custom').hide();
+				flag=true;
+				
+				}
+				
+				
+				
+			})
+            $(".eject_close,.mask").click(function () {
+                $(".eject").css("bottom", "-100%");
+            })
+
+            $(".eject_submit").click(function () {
+                if ($("#attract").val() == 0) {
+                    layer.open({
+                        content: '请选择比赛选项',
+                        skin: 'msg',
+                        time: 2
+                    });
+                    return false;
+                }
+                var act_id = $('#actid').val();
+                var attr_id = $("#attract").val();
+                $(".eject").css("bottom","-100%");
+                location.href = '/Home/Index/payorder/act_attr/' + act_id + '-' + attr_id;
+            })
+
+
+        </script>
+    </body>
+</html>

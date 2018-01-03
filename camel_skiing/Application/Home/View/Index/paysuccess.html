@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="报名详情页" name="Keywords">
+        <meta content="报名详情页" name="Description">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>报名详情页</title>
+        <link type="text/css" href="__PUBLIC__/skiing/css/frameIp.css" rel="stylesheet"/>
+        <link type="text/css" href="__PUBLIC__/skiing/css/play.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="title">
+            <p style="color: #000000;font-size: 15px;">{$detail.theme_name}</p>
+            <!--<h1>亚布力阳光度假村站</h1>-->
+        </div>
+        <div class="detail_message">
+            <div><em>比赛时间：</em>{$detail.start_time|date='Y.m.d',###}~{$detail.end_time|date='Y.m.d',###}</div>
+            <div><p><em>比赛地点：</em>{$detail.site}</p></div>
+            <div><em>截止报名时间：</em>{$detail.cutoff_time|date='Y.m.d',###}</div>
+        </div>
+        <div style="width: 100%;height: 10px;background: #f2f2f2;"></div>
+        <p style=" padding: 15px;color: #323232;font-size: 16px;">报名信息</p>
+        <div class="table-d">
+            <table cellspacing="1" cellpadding="1">
+                <tr>
+                    <th width="30%">报名人</th>
+                    <th width="30%">项目</th>
+                    <th width="30%">费用(元)</th>
+                </tr>
+                <foreach name='orderinfo' item='vo'>
+                    <tr>
+                        <td>{$vo.true_name}</td>
+                        <td>{$vo.attr_value}</td>
+                        <td>{$vo.price}</td>
+                    </tr>
+                </foreach>
+            </table>
+            <p style="padding: 15px;color: #323232;font-size: 15px;">参赛提醒</p>
+
+            <p  style="padding: 1px 0 0px 15px;color: #AAAAAA;font-size: 13px;">一经报名，参赛报名费不可退，如参赛者因其他因素不能参加比赛，可添加客服进行参赛信息更改，以便保险缴纳。</p>			
+
+
+
+            <div class="tow_code_list">
+                <div class="tow_code">
+                    <img src="__PUBLIC__/skiing/images/pay@success.jpg">
+                </div>
+                <p>客服二维码</p>
+            </div>
+    </body>
+</html>

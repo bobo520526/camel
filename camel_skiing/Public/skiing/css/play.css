@@ -1,0 +1,72 @@
+@charset "utf-8"; * {
+    margin: 0;
+    padding: 0;
+}
+.title {padding: 16px 5% 0 5%;}
+
+.title p {color: #323232;}
+.title h1{
+    color: #BC9553;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/*detail_message*/
+.detail_message{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 5px 5%;
+    margin-bottom: 4px;
+}
+.detail_message div{
+    color: #919191;
+    width: 100%;
+    line-height: 50px;
+}
+.detail_message div em{
+    color: #323232;
+}
+.detail_message p{
+    display: -webkit-box;
+    display: box;
+    color: #919191;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    line-height: 18px;
+    }
+
+    .table-d table{width: 90%;background: #ffffff;margin: 0 auto;}
+.table-d table th{background: #BC9553;text-align: center;color: #fff;line-height: 40px;}
+.table-d table td{text-align: center;background: #F4F4F4;color: #878787;line-height: 40px;}
+.p_message{
+    width: 90%;
+    overflow: hidden;
+    margin: 0 auto;
+    color: #878787;
+}
+.tow_code_list{
+    width: 100%;
+    overflow: hidden;
+    text-align: -webkit-center;
+    margin: 20px 0;
+}
+.tow_code{
+    display: -webkit-box;
+    display: box;
+    width: 130px;
+    height: 130px;
+    background: #E6E6E6;
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-box-pack: center;
+    box-pack: center;
+}
+.tow_code_list>p{
+    line-height: 44px;
+}

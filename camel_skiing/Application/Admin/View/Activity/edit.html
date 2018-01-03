@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>活动编辑</title>
+    <include file="Public/header_source"/>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__PUBLIC__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugin/ueditor/ueditor.all.js"></script>
+    <!-- 上传插件 -->
+    <script type="text/javascript" src="__PUBLIC__/admin/js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
+
+    <link href="__PUBLIC__/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <link href="__PUBLIC__/admin/css/plugins/laydate/laydate.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/layer/laydate/laydate.js"></script>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">        
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>活动编辑</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+
+            <div class="ibox-content">
+                <form method="post" action="{:U('editHandle')}" class="form-horizontal">
+                    <input type='hidden' name='id' value='{$info.id}'/>                    
+
+                    <div class="form-group">
+                        <!--        <label class="weui-label">任务封面</label>-->
+                        <label class="col-sm-2 control-label">效果图</label>
+
+                        <div class="col-sm-10">
+
+                            <div class="img-preview img-preview-sm" id="uploaderFiles">
+                                <img width="80px" height="80px" src='<if condition="empty($info[img])">__PUBLIC__/images/default_upload.png<else/>{$info[img]}</if>' >
+                                <input type='hidden' id="hidd_img" name='img' value="{$info[img]}" />
+                                <input id="uploaderInput" class="weui-uploader__input" name="img1" type="file" accept="image/*" multiple capture="camera" />
+                            </div>
+
+                        </div>
+
+                        <script>
+                            layui.use('upload', function () {
+                                layui.upload({
+                                    elem: '#uploaderInput',
+                                    //#########################请注意上传path要改对应###########################
+                                    url: '{:U("Upload/image",["path"=>"order"])}',
+                                    success: function (res, option) { //上传成功后的回调
+                                        var obje = $(option).parents('.layui-upload-button').next();
+                                        console.log(res);
+                                        if (res.status) {
+                                            var imgpath = '/Uploads/' + res.data.savepath + res.data.savename;
+                                            $("#uploaderFiles img").attr('src', imgpath);
+                                            $("#hidd_img").val(imgpath);
+
+                                            layer.msg(res.info, {icon: 6});
+                                        } else {
+                                            layer.msg(res.info, {icon: 5});
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">比赛主题</label>
+                            <div class="col-sm-3">
+                                <input type="text" name='theme_name' value='{$info.theme_name}' class="form-control">
+                            </div>
+                        </div>
+
+                        <div class='form-groups'>
+                            <label class="col-sm-2 control-label">比赛时间</label>
+                            <div class="input-daterange input-group">
+                                <input type="text" class="input-sm form-control" id="start" name="start_time" value="{$info.start_time|date='Y-m-d H:i:s',###}">
+                                <span class="input-group-addon">到</span>
+                                <input type="text" class="input-sm form-control" id="end" name="end_time" value="{$info.end_time|date='Y-m-d H:i:s',###}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>   
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">比赛地点</label>
+                            <div class="col-sm-3">
+                                <input type="text" name='site' value='{$info.site}' class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="allcount">
+                            <label class="col-sm-2 control-label">报名人数</label>
+                            <div class="col-sm-3">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" name='num' value='{$info.num}'> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='form-groups'>
+                            <label class="col-sm-2 control-label">报名截止时间</label>
+                            <div class="input-daterange input-group">
+                                <input type="text" class="input-sm form-control" id="installstart" name="cutoff_time" value="{$info.cutoff_time|date='Y-m-d H:i:s',###}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">比赛详情介绍</label>
+                            <div class="col-sm-5">
+                                <!-- 加载编辑器的容器 -->
+                                <script id="content" name="content" type="text/plain">{:htmlspecialchars_decode($info[content])}</script>
+                                <script type="text/javascript">
+                                    var editor = new UE.ui.Editor({});
+                                    editor.render("content");
+                                </script>
+                            </div>
+                        </div>                        
+
+
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">客服咨询</label>
+                            <div class="col-sm-10">
+                                <label class="checkbox-inline">
+                                    <input name="link_mobile" value="{$info.link_mobile}" type="text">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">比赛选项</label>
+                            <div class="col-sm-10 main">
+                                <foreach name="attrinfo" item="vo">
+                                    <label class="checkbox-inline main_sub">
+                                        <span>
+                                            <input id="" type="text" name="attr_value[]" value="{$vo.attr_value}" style="" placeholder="比赛选项">
+                                            &nbsp;&nbsp;&nbsp;费用：<input id="" type="text" name="attr_price[]" value="{$vo.attr_price}" style="">&nbsp;元
+                                        </span>
+                                        <span class="glyphicon glyphicon-plus-sign add" style="font-size: 26px;"  onclick="add(this)"></span>
+                                        <span class="glyphicon glyphicon-minus-sign min" aria-hidden="true" style="font-size: 26px;" onclick="min(this)"></span>
+                                    </label>
+                                </foreach>  
+                                <label class="checkbox-inline main_sub">
+                                    <span>
+                                        <input id="" type="text" name="attr_value[]" value="" style="" placeholder="比赛选项">
+                                        &nbsp;&nbsp;&nbsp;费用：<input id="" type="text" name="attr_price[]" value="" style="">&nbsp;元
+                                    </span>
+                                    <span class="glyphicon glyphicon-plus-sign add" style="font-size: 26px;"  onclick="add(this)"></span>
+                                    <span class="glyphicon glyphicon-minus-sign min" aria-hidden="true" style="font-size: 26px;" onclick="min(this)"></span>
+                                </label>
+
+                            </div>
+                        </div>
+
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">确认发布</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- End Panel Other -->
+    </div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        var start = {
+            elem: '#start',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: laydate.now(), //设定最小日期为当前日期
+            max: '2099-06-16 23:59:59', //最大日期
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: laydate.now(),
+            max: '2099-06-16 23:59:59',
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+
+        var installstart = {
+            elem: '#installstart',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: laydate.now(), //设定最小日期为当前日期
+            max: '2099-06-16 23:59:59', //最大日期
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        laydate(start);
+        laydate(end);
+        laydate(installstart);
+    });
+
+    var getOwnHtml = $(".main_sub").parent().html().toString();
+
+    function add() {
+        $('.main').append(getOwnHtml);
+    }
+
+    function min(e) {
+        e.parentNode.parentNode.removeChild(e.parentNode);
+    }
+
+</script>

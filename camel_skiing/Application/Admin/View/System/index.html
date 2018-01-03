@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>系统设置</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="__PUBLIC__/admin/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/style.min.css?v=4.0.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>基本设置 <small class="m-l-sm">系统设置</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">网站基本配置</a></li>
+<!--                                <li><a data-toggle="tab" href="#tab-2" aria-expanded="true">理财设置</a></li>
+                                <li><a data-toggle="tab" href="#tab-3" aria-expanded="true">用户设置</a></li>
+                                <li><a data-toggle="tab" href="#tab-4" aria-expanded="true">提现设置</a></li>-->
+                            </ul>
+                            <div class="tab-content">
+                                
+                                <!--  第一个选项卡 -->
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <form method="post" action="{:U('System/handle')}" class="form-horizontal">
+                                            <input type="hidden" name="inc_type" value="baisc" />
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">网站标题</label>
+
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="site_title" class="form-control" value="{:tpCache('baisc.site_title')}">
+                                                    </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">网站关键字</label>
+
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="site_keywords" class="form-control" value="{:tpCache('baisc.site_keywords')}">
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">网站描述</label>
+
+                                                    <div class="col-sm-10">
+                                                        <textarea name="site_description" class="form-control" required="" aria-required="true">{:tpCache('baisc.site_description')}</textarea>
+                                                    </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            
+                                            
+<!--                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">网站公告</label>
+
+                                                <div class="col-sm-10">
+                                                        <textarea id="site_gonggao" name="site_gonggao" class="form-control" required="" aria-required="true">{:tpCache('baisc.site_gonggao')}</textarea>
+                                                    </div>
+                                            </div>-->
+                                            <div class="hr-line-dashed"></div>
+                                            
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                                    <button class="btn btn-white" type="submit">取消</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--  第一个选项卡 END -->
+                                
+                                <!--  第二个选项卡 -->
+<!--                                <div id="tab-2" class="tab-pane">
+                                    <form method="post" action="{:U('System/handle')}" class="form-horizontal">
+                                        <input type="hidden" name="inc_type" value="order" />
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">每日进场套餐数</label>
+                                                <div class="col-sm-2">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="package_number" value="{:tpcache('order.package_number')}"><span class="input-group-addon">个</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span class="help-block m-b-none">每天进场各套餐的数量可限数量（0不限制）</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">每日奖金池设置</label>
+                                                <div class="col-sm-2">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="package_total_amount" value="{:tpcache('order.package_total_amount')}"><span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span class="help-block m-b-none">每天进场总金额可限制（0不限制）</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">动态奖金奖励</label>
+                                                    <div class="col-sm-10">
+                                                        <php>
+                                                            $dynamic_reward = unserialize(tpcache('order.dynamic_reward'));
+                                                        </php>
+                                                        <table class="table table-bordered" id="dynamic_reward_tab">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>代数</th>
+                                                                    <th>直推人数</th>
+                                                                    <th>奖励比例</th>
+                                                                    <th><button type="button" class="btn btn-default btn-xs dy-add-btn">+</button></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <foreach name='dynamic_reward' key='keys' item='vo'>
+                                                                <tr>
+                                                                    <td><input type="text" class="form-control" name="dynamic_reward[daishu][]" value="{$keys}"></td>
+                                                                    <td><input type="text" class="form-control" name="dynamic_reward[zhitui][]" value="{$vo['zhitui']}"></td>
+                                                                    <td><input type="text" class="form-control" name="dynamic_reward[bli][]" value="{$vo['bli']}"></td>
+                                                                    <td>
+                                                                       <button type="button" class="btn btn-default btn-xs dy-del-btn" >-</button> 
+                                                                    </td>
+                                                                </tr>
+                                                            </foreach>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                    </div>
+                                                
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">违约金</label>
+                                                <div class="col-sm-2">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="tiqian_weiyue_amount" value="{:tpcache('order.tiqian_weiyue_amount')}"><span class="input-group-addon">%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span class="help-block m-b-none">理财产品提前转出扣除本金百分比违约金</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">套餐买入倍数</label>
+                                                <div class="col-sm-1">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="buy_multiple" value="{:tpcache('order.buy_multiple')}"><span class="input-group-addon">倍数</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <span class="help-block m-b-none">套餐买入必需是多少的倍数</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                                    <button class="btn btn-white" type="submit">取消</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>-->
+                                <!--  第二个选项卡 END -->
+                                <!--  第三个选项卡  -->
+<!--                                <div id="tab-3" class="tab-pane">
+                                    <form method="post" action="{:U('System/handle')}" class="form-horizontal">
+                                        <input type="hidden" name="inc_type" value="user" />
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">激活账户金额</label>
+                                                <div class="col-sm-2">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="user_activate_amount" value="{:tpcache('user.user_activate_amount')}"><span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span class="help-block m-b-none">用户激活理财需要多少金额</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">领导人推荐奖</label>
+                                                <div class="col-sm-2">
+                                                    <div class="input-group m-b">
+                                                        <input type="text" class="form-control" name="user_activate_leader" value="{:tpcache('user.user_activate_leader')}"><span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span class="help-block m-b-none">激活账户推荐人可获得奖励</span>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                                    <button class="btn btn-white" type="submit">取消</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>-->
+                                <!--  第三个选项卡 END -->
+                                <!--  第四个选项卡  -->
+<!--                                <div id="tab-4" class="tab-pane">
+                                    <form method="post" action="{:U('System/handle')}" class="form-horizontal">
+                                        <input type="hidden" name="inc_type" value="withdraw" />
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">提现费率</label>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group m-b"><span class="input-group-addon">静态余额</span>
+                                                        <input type="text" class="form-control" name="static_rate" value="{:tpcache('withdraw.static_rate')}"> <span class="input-group-addon">%</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">动态余额</span>
+                                                        <input type="text" class="form-control" name="dynamic_rate" value="{:tpcache('withdraw.dynamic_rate')}"> <span class="input-group-addon">%</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">奖金余额</span>
+                                                        <input type="text" class="form-control" name="award_rate" value="{:tpcache('withdraw.award_rate')}"> <span class="input-group-addon">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">提现倍数</label>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group m-b"><span class="input-group-addon">静态余额</span>
+                                                        <input type="text" class="form-control" name="static_multiple" value="{:tpcache('withdraw.static_multiple')}"> <span class="input-group-addon">倍数</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">动态余额</span>
+                                                        <input type="text" class="form-control" name="dynamic_multiple" value="{:tpcache('withdraw.dynamic_multiple')}"> <span class="input-group-addon">倍数</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">奖金余额</span>
+                                                        <input type="text" class="form-control" name="award_multiple" value="{:tpcache('withdraw.award_multiple')}"> <span class="input-group-addon">倍数</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">最低提现金额</label>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group m-b"><span class="input-group-addon">静态余额</span>
+                                                        <input type="text" class="form-control" name="static_lowest" value="{:tpcache('withdraw.static_lowest')}"> <span class="input-group-addon">元</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">动态余额</span>
+                                                        <input type="text" class="form-control" name="dynamic_lowest" value="{:tpcache('withdraw.dynamic_lowest')}"> <span class="input-group-addon">元</span>
+                                                    </div>
+                                                    <div class="input-group m-b"><span class="input-group-addon">奖金余额</span>
+                                                        <input type="text" class="form-control" name="award_lowest" value="{:tpcache('withdraw.award_lowest')}"> <span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                                    <button class="btn btn-white" type="submit">取消</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>-->
+                                <!--  第四个选项卡 END -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="__PUBLIC__/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__PUBLIC__/admin/js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="__PUBLIC__/admin/js/content.min.js?v=1.0.0"></script>
+    <script>
+    $(function(){
+        $("#dynamic_reward_tab .dy-add-btn").on('click',function(){
+            var html = '';
+            html += ("<tr>");
+            html += ("    <td>");
+            html += ("        <input type=\"text\" class=\"form-control\" name=\"dynamic_reward[daishu][]\"");
+            html += ("        value=\"50\">");
+            html += ("    </td>");
+            html += ("    <td>");
+            html += ("        <input type=\"text\" class=\"form-control\" name=\"dynamic_reward[zhitui][]\"");
+            html += ("        value=\"50\">");
+            html += ("    </td>");
+            html += ("    <td>");
+            html += ("        <input type=\"text\" class=\"form-control\" name=\"dynamic_reward[bli][]\" value=\"50\">");
+            html += ("    </td>");
+            html += ("    <td>");
+            html += ("        <button type=\"button\" class=\"btn btn-default btn-xs dy-del-btn\">");
+            html += ("            -");
+            html += ("        </button>");
+            html += ("    </td>");
+            html += ("</tr>");
+            $("#dynamic_reward_tab tbody").append(html);
+        })
+        $(document).on('click',"#dynamic_reward_tab .dy-del-btn",function(){
+            $(this).parents('tr').remove();
+        });
+    })
+    </script>
+</body>
+
+</html>

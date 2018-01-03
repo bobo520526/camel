@@ -1,0 +1,242 @@
+@charset "utf-8"; * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #ffffff;
+}
+
+.title {padding: 16px 5%;}
+
+.title p {
+    color: #BC9553;
+}
+.title h1{
+    color:#323232;
+    font-weight: 500;
+    margin: 4px 0 15px 0;
+}
+
+.list_content {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 3% 10px;
+}
+.list_sub{
+	display: -webkit-box;
+	display: box;
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.list_sub_left{
+    display: -webkit-box;
+    display: box;
+    -webkit-box-flex: 1.0;
+    box-flex: 1.0;
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-box-pack: center;
+    box-pack: center;
+}
+.enroll_sub{
+	-webkit-box;
+	width: 80%;
+	overflow: hidden;
+}
+.enroll_nav_nav {
+    display: -webkit-box;
+    display: box;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 5%;
+    height: 45px;
+    line-height: 45px;
+    background-color: #F8F8F8;
+    margin-bottom: 2px;
+}
+
+.enroll_title {
+    display: -webkit-box;
+    display: box;
+    width: 80px;
+    color: black;
+}
+
+.enroll_inputs {
+    display: -webkit-box;
+    display: box;
+    -webkit-box-flex: 1.0;
+    box-flex: 1.0;
+    -webkit-box-pack: end;
+    box-pack: end;
+    -webkit-box-align: center;
+    box-align: center;
+}
+.enroll_inputs>p{
+    display: -webkit-box;
+    display: box;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    line-height: 30px;
+    text-align: -webkit-center;
+    margin-right: 5px;
+}
+.enroll_inputs_ok{
+    background-color: #BC9553;
+    border: 1px solid #BC9553 !important;
+    color: #fff !important;
+}
+
+.enroll_input {
+    -webkit-box-flex: 1.0;
+    box-flex: 1.0;
+}
+
+.enroll_input input {
+    font-size: 1em;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    float: right;
+    border: none;
+    padding: 14px 5px;
+    outline: none;
+    text-align: right;
+    background: transparent;
+}
+
+.content_li {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 91%;
+    height: 45px;
+    line-height: 45px;
+    background: #F8F8F8;
+    padding: 0 5%;
+    margin: 0 auto;
+}
+
+.content_li ul {
+    display: -webkit-box;
+    display: box;
+}
+
+.content_li ul li {
+    display: -webkit-box;
+    color: #323232;
+}
+.content_li ul li span{
+    color: #BC9553;
+}
+.content_li ul li:nth-child(1) {
+    display: -webkit-box;
+    width: 80px;
+}
+
+.content_li ul li:nth-child(2) {
+    -webkit-box-flex: 1.0;
+    box-flex: 1.0;
+    text-align: -webkit-center;
+}
+
+.content_li ul li:nth-child(3) {
+    display: -webkit-box;
+    width: 80px;
+    text-align: -webkit-right;
+}
+
+.enroll_inputs input {
+    text-align: left;
+}
+
+.checkbox_content {
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 50px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.bottom_center {
+    width: 100%;
+    background: #f7f7f7;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    z-index: 100;
+    font-size:18px;
+}
+
+
+.jia_name,.reduce_name {
+    width: 30px;
+    height: 60px;
+    background: white;
+    color: #BC9553;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid #EAECF0;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    padding: 0;
+}
+
+label {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-right: 15px;
+}
+
+.hidden-input {
+    opacity: 0;
+    filter: Alpha(opacity=0);
+    position: absolute;
+    z-index: -1;
+}
+
+input[type=checkbox]:checked~span {
+    background-color: #BC9553 !important;
+    background: url(../images/agree.png);
+    background-size: 20px;
+    -webkit-background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+label input[type=checkbox]~span {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background-color: #b9b2b2;
+    position: absolute;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+
+.button-pay{
+    font-size: 17px;
+    width: 36%;
+    height: 50px;
+    background: #BC9553;
+    color: white;
+    border: none;float: right;
+}

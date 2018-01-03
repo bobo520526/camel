@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>活动详情</title>
+    <include file="Public/header_source"/>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__PUBLIC__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugin/ueditor/ueditor.all.js"></script>
+    <!-- 上传插件 -->
+    <script type="text/javascript" src="__PUBLIC__/admin/js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
+
+    <link href="__PUBLIC__/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <link href="__PUBLIC__/admin/css/plugins/laydate/laydate.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/layer/laydate/laydate.js"></script>
+<style>
+    .myself{
+        background: #00b7ee;
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>    
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">        
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>活动详情</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+
+            <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class='myself'>比赛状态</td>
+                            <td><if condition='$info.status eq 1'>
+                                <span class="text-success" >进行中</span>
+                                <elseif condition='$info.status eq 2' />
+                                 <span class="text-warning">已关闭</span>
+                                <else />
+                                <span class="text-info">已结束</span>
+                                </if>
+                            </td>
+                            <td class='myself'>海报</td>
+                            <td><img src='{$info.img}' width='300'/></td>
+                        </tr>
+                        <tr>
+                            <td class='myself'>比赛主题</td>
+                            <td>{$info.theme_name}</td>
+                            <td class='myself'>比赛时间</td>
+                            <td>{$info.start_time|date='Y-m-d',###}~{$info.end_time|date='Y-m-d',###}</td>
+                        </tr>
+                        <tr>
+                            <td class='myself'>比赛地点</td>
+                            <td>{$info.site}</td>
+                            <td class='myself'>报名人数</td>
+                            <td>{$info.num}人</td>
+                        </tr>
+                        <tr>
+                            <td class='myself'>截止报名时间</td>
+                            <td>{$info.cutoff_time|date='Y-m-d',###}</td>
+                            <td class='myself'>比赛选项</td>
+                            <td>{$attrstr}</td>
+                        </tr>
+                        <tr>
+                            <td class='myself'>比赛详情介绍</td>
+                            <td>{:htmlspecialchars_decode($info[content])}</td>
+                            <td class='myself'>客服咨询</td>
+                            <td>{$info.link_mobile}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+
+        <!-- End Panel Other -->
+    </div>
+
+</body>
+</html>

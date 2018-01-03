@@ -1,0 +1,46 @@
+﻿@charset "utf-8";
+
+/* Css Reset Mobile*/
+html{font-family: arial,"Microsoft YaHei";font-size: 14px;-webkit-text-size-adjust: 100%;-webkit-font-smoothing: antialiased;}
+html,body{width: 100%;height: 100%;overflow-x: hidden;-webkit-overflow-scrolling: touch;}
+body{background-color: #eeeeee;color: #666666;}
+body, dl, dd, h1, h2, h3, h4, h5, h6, p, form{margin:0;}
+ol,li,ul{margin:0; padding:0;}
+*{ -webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent; /* For some Androids */zoom:1;}
+address,caption,cite,code,dfn,em,th,var,i { font-weight:normal; font-style:normal; }
+ol,ul,li { list-style: none; }
+a { background: transparent; text-decoration: none; color: #000; }
+a:active {background-color: #ddd !important;}
+button,input[type='button']{-webkit-appearance:none;-moz-appearance:none;}
+img {max-width: 100%;height: auto;}
+ol, ul, li {list-style: none;}
+
+/*-----------万能闭合-------------*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+*+html .clearfix{min-height:1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+.clear{font-size:0px; clear:both; height:0px; overflow:hidden}
+
+/*通用布局*/
+.fl{ float:left;}
+.fr{  float: right;}
+.f8{ font-size:0.8em;}
+.f9{ font-size:0.9em;}
+.f10{ font-size:1em;}
+.f11{ font-size:1.1em;}
+.f12{ font-size: 0.85em;}
+.f13{ font-size:1.3em;}
+.f14{ font-size:1.4em;}
+.f15{ font-size:1.5em;}
+.f16{ font-size:1.7em;}
+.f18{ font-size:1.8em;}

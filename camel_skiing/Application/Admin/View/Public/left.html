@@ -1,0 +1,44 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="__PUBLIC__/admin/img/profile_small.jpg" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">{$admin_info[user_name]}</strong></span>
+                                <span class="text-muted text-xs block">{$admin_info[role_name]}<b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+
+                                <li class="divider"></li>
+                                <li><a href="{:U('/Admin/Admin/logout')}">安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">户外活动</div>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="{:U('index/home')}"><i class="fa fa-home"></i> <span class="nav-label">主页</span></a>
+                    </li>
+                   	  <foreach name="menu_list" item="vo" key="k" >
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa {$vo.icon}"></i>
+                                    <span class="nav-label">{$vo.title}</span>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <foreach name="vo.submenu" item="vv" key="kk">
+                                    <li><a href="{$vv.url}" class="J_menuItem">{$vv.title}</a></li>
+                                    </foreach>
+                                </ul>
+                            </li>
+                          </foreach>  
+                    
+                </ul>
+            </div>
+        </nav>

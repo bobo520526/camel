@@ -1,0 +1,7 @@
+array (
+  0 => NULL,
+  1 => true,
+  2 => NULL,
+  3 => false,
+  4 => true,
+)

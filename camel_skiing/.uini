@@ -1,0 +1,1 @@
+open_basedir="D:\WWW\camel_skiing\;D:\UPUPW_NP5.6\memcached\;D:\UPUPW_NP5.6\phpmyadmin\;D:\UPUPW_NP5.6\temp\;C:\Windows\Temp\"

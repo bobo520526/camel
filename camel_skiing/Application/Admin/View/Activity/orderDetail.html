@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>订单详情</title>
+    <include file="Public/header_source"/>
+    <link href="__PUBLIC__/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <script src="__PUBLIC__/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox-title">
+            <h5>订单详情 <small class="m-l-sm">订单详情</small></h5>
+        </div>
+        <!-- Panel Other -->
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <!-- Example Events -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <div class="fixed-table-body">
+                                <table id="exampleTableEvents" data-mobile-responsive="true" class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="" data-field="order_sn" tabindex="0">
+                                                <div class="th-inner ">报名号</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style="" data-field="theme_name" tabindex="0">
+                                                <div class="th-inner ">比赛主题</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style="" data-field="attr_value" tabindex="0">
+                                                <div class="th-inner ">比赛选项</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style="" data-field="user_num" tabindex="0">
+                                                <div class="th-inner sortable both">姓名</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style=""  tabindex="0">
+                                                <div class="th-inner sortable both">性别</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style=""  tabindex="0">
+                                                <div class="th-inner ">身份证号</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style=""  tabindex="0">
+                                                <div class="th-inner ">电话号</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style=""  tabindex="0">
+                                                <div class="th-inner ">微信号</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style=""  tabindex="0">
+                                                <div class="th-inner ">费用</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                            <th style="" data-field="caozuo" tabindex="0">
+                                                <div class="th-inner ">操作</div>
+                                                <div class="fht-cell"></div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <foreach name='order' item="vo">
+                                        <tr data-index="0" data-uniqueid="1">
+                                            <td style="">{$vo.order_sn}</td>
+                                            <td style="">{$vo.theme_name}</td>
+                                            <td style="">{$vo.attr_value}</td>
+                                            <td style="">{$vo.true_name}</td>
+                                            <td style="">
+                                        <if condition='$vo.sex eq 1'>
+                                            男
+                                            <else/>
+                                            女
+                                        </if>
+                                        </td>
+                                        <td style="">{$vo.id_card}</td>
+                                        <td style="">{$vo.mobile}</td>
+                                        <td style="">{$vo.wechat}</td>
+                                        <td style="">{$vo.price}</td>
+                                        <td style="">
+                                            <a href="{:U('edit',array('id'=>$vo['ou_id']))}"  class="layer-open-url">编辑</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" data-id="{$vo['ou_id']}"  class="layer-open-url delete">删除</a>
+                                        </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+    <script>
+
+
+        $(function () {
+            //应用样式layer-open-url 使用data-url=目标链接
+            $(document).on('click', '.layer-open-url', function () {
+                var url = $(this).data('url');
+                if (url) {
+                    layer.open({
+                        type: 2,
+                        title: '信息',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['90%', '90%'],
+                        content: url //iframe的url
+                    });
+                }
+            });
+
+            //删除
+            $(document).on('click', '.delete', function () {
+                var ids = $(this).attr('data-id');
+                //询问框
+                layer.confirm('您确定删除选中记录？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    TP.POST("{:U('remove')}", {id: ids}, function (ret) {
+                        layer.msg('删除成功', {icon: 2,time:500},function(){
+                            window.location.reload();
+                        });
+                    })
+                }, function () {
+                    //取消操作
+                });
+            });
+        })
+
+    </script>
+
+</body>
+
+</html>

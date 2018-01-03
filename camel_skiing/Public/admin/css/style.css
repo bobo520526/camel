@@ -1,0 +1,6 @@
+ .col-sm-12 table{border-collapse: collapse; width: 100%;}
+           .col-sm-12  table,th,td{border:1px solid #ccc;}
+            .col-sm-12 tr th ,.col-sm-12 tr td{text-align: center; line-height: 45px;}
+            .col-sm-12 thead{background: f5f5f5}
+            .col-sm-12-tr{background: none}
+            .col-sm-12 tbody tr:nth-child(odd){background: #f7f7f7}

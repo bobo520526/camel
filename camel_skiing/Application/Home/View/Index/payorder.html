@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="添加信息" name="Keywords">
+        <meta content="添加信息" name="Description">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>添加信息</title>
+        <link href="__PUBLIC__/skiing/css/frameIp.css" rel="stylesheet" />
+        <link href="__PUBLIC__/skiing/css/add.css?1" rel="stylesheet" />
+
+        <script type="text/javascript" src="__PUBLIC__/skiing/js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/skiing/js/layer.mobile-v2.0/layer_mobile/layer.js"></script>
+        <!--layerUI -->
+        <!--        <link rel="stylesheet" href="__PUBLIC__/plugin/layer/css/layui.css"  media="all">-->
+        <script type="text/javascript" src="__PUBLIC__/plugin/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/plugin/layer/layui.js"></script>
+    </head>
+    <body>
+        <form id="formorder" data-url="{:U('order')}" method="POST" onsubmit="return false;">
+            <input type="hidden" name="act_id" value='{$attr.act_id}' />
+            <input type="hidden" name="attr_id" value='{$attr.attr_id}' />
+            <div class="title">
+                <p>比赛选项</p>
+                <h1>{$attr.attr_value}</h1>
+                <p>请填写真实信息</p>
+            </div>
+            <div class="list_content">
+                <div class="list_sub" id="enroll_sub">
+                    <div class="enroll_sub">
+                        <div class="enroll_nav_nav">
+                            <p class="enroll_title">真实姓名</p>
+                            <div class="enroll_input">
+                                <input name="true_name[]" type="text" placeholder="(与证件名字一致)" />
+                            </div>
+                        </div>
+                        <div class="enroll_nav_nav">
+                            <p class="enroll_title">性别</p>
+                            <div class="enroll_inputs">
+                                <p data-sex='2' class="enroll_inputs_ok">女</p>
+                                <p data-sex='1'>男</p> 
+                                <input  type="hidden" name="sex[]" value="2">
+                            </div>
+                        </div>
+                        <div class="enroll_nav_nav">
+                            <p class="enroll_title">身份证</p>
+                            <div class="enroll_input">
+                                <input type="text" name="id_card[]" placeholder="(与证件号码一致)" />
+                            </div>
+                        </div>
+                        <div class="enroll_nav_nav">
+                            <p class="enroll_title">电话号码</p>
+                            <div class="enroll_input">
+                                <input type="text" name="mobile[]" placeholder="(电话号码必填)" />
+                            </div>
+                        </div>
+                        <div class="enroll_nav_nav">
+                            <p class="enroll_title">微信号</p>
+                            <div class="enroll_input">
+                                <input type="text" name="wechat[]" placeholder="(微信号必填)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list_sub_left">
+                        <div class="jia_name">+</div>
+                    </div>
+                </div>
+                <!--                <div class="enroll_sub" id="enroll_sub">
+                                    <div class="enroll_nav_nav">
+                                        <p class="enroll_title">真实姓名</p>
+                                        <div class="enroll_input">
+                                            <input name="true_name[]" type="text" placeholder="(填写与证件名字一致)" />
+                                        </div>
+                                    </div>
+                                    <div class="enroll_nav_nav">
+                                        <p class="enroll_title">性别</p>
+                                        <div class="enroll_inputs">
+                
+                                            <p data-sex='2' class="enroll_inputs_ok">女</p>
+                                            <p data-sex='1'>男</p> 
+                                            <input  type="hidden" name="sex[]" value="2">
+                                        </div>
+                                    </div>
+                                    <div class="enroll_nav_nav">
+                
+                                        <p class="enroll_title">身份证</p>
+                                        <div class="enroll_input">
+                                            <input type="text" name="id_card[]" placeholder="(填写与证件号码一致)" />
+                                        </div>
+                                    </div>
+                                    <div class="enroll_nav_nav">
+                                        <p class="enroll_title">电话号码</p>
+                                        <div class="enroll_input">
+                                            <input type="text" name="mobile[]" placeholder="(电话号码必填)" />
+                                        </div>
+                                    </div>
+                                    <div class="enroll_nav_nav">
+                                        <p class="enroll_title">微信号</p>
+                                        <div class="enroll_input">
+                                            <input type="text" name="wechat[]" placeholder="(微信号必填)" />
+                                        </div>
+                                    </div>
+                                </div>-->
+            </div>
+            <!--            <div class="jia_name">+</div>-->
+            <p style="color: #C9A567;padding: 0px 16px 16px 16px;">费用详情</p>
+            <div class="content_li">
+                <input id="onlyone" type="hidden" name="attr_price" value="{$attr.attr_price}">
+                <ul>
+                    <li>{$attr.attr_value}</li>
+                    <li>
+                        <span>{$attr.attr_price}</span>	
+                        元/人
+                    </li>
+                    <li><span>1</span>人</li>
+                </ul>
+            </div>
+            <div class="checkbox_content">
+                <label>
+                    <input name="agree" type="checkbox" class="hidden-input" checked="checked">
+                    <span></span>
+                </label>
+                <span>我已阅读并同意</span>
+                <a href="{:U('play_index')}">
+                <span style="color: #C9A567;">《免责条款》</span>
+                </a>
+            </div>
+            <div style="width: 100%;height: 55px;"></div>
+            <div class="bottom_center">
+                <input id="man_count" type="hidden" name="man_count" value="1">
+                <div>
+                    <span>
+                        <span  style="color: black;">&nbsp;&nbsp;总费用：</span>
+                        <span id="allmoney" style="color: #C9A567;">{$attr.attr_price}</span>
+                        <span style="color: #000000;">元</span>
+                    </span>
+                    <button id="wechatpay" data-val="true" class="button-pay" >支付</button>
+                </div>
+            </div>
+
+        </form>
+        <script type="text/javascript" src="__PUBLIC__/skiing/js/jquery-1.8.3.min.js"></script>
+        <script>
+            
+$('.jia_name').click(function(){
+    if($(".list_content").children().length === 1){
+				$('body').css('height','auto');
+			}
+			$(".list_content").append('<div class="list_sub" id="enroll_sub"><div class="enroll_sub"><div class="enroll_nav_nav"><p class="enroll_title">真实姓名</p><div class="enroll_input"><input type="text" name="true_name[]" placeholder="(与证件名字一致)" /></div>'+
+					'</div><div class="enroll_nav_nav"><p class="enroll_title">性别</p><div class="enroll_inputs"><p data-sex="2" class="enroll_inputs_ok">女</p><p data-sex="1">男</p> <input  type="hidden" name="sex[]" value="2"></div></div><div class="enroll_nav_nav"><p class="enroll_title">身份证</p>'+
+					'<div class="enroll_input"><input type="text"  name="id_card[]" placeholder="(与证件号码一致)" /></div></div><div class="enroll_nav_nav"><p class="enroll_title">电话号码</p>'+
+					'<div class="enroll_input"><input type="text" name="mobile[]" placeholder="(手机号必填)" /></div></div><div class="enroll_nav_nav"><p class="enroll_title">微信号</p><div class="enroll_input"><input type="text" name="wechat[]" placeholder="(微信号必填)" /></div></div></div><div class="list_sub_left"><div class="jia_name" onclick="del(this)">-</div></div>');
+			enroll();
+                        getmoney();
+		})
+		
+		function enroll(){
+			$(".enroll_inputs>p").click(function(){
+			    $(this).addClass('enroll_inputs_ok').siblings('p').removeClass('enroll_inputs_ok')
+			})
+		}
+		
+		enroll();
+		function del(e){
+                    if($(".list_content").children().length !== 1){
+				$('body').css('height','100%');
+			}
+			e.parentNode.parentNode.remove();
+                        lessenmoney();
+		}            
+            
+            
+            
+//var outerHTML = function(){
+//			var i = $("#enroll_sub").prop("outerHTML");
+//			return function(){
+//				return i;
+//			}
+//		}
+//		
+//		var newOuterHTML = new outerHTML();
+//		
+//		$('.jia_name').click(function(){
+//			var i = newOuterHTML();
+//			$(".list_content").append(i.replace(/<div class=\"jia_name\">\+<\/div>/,'<div class="reduce_name" onclick="del(this)">-</div>').replace(/id=\"enroll_sub\"/,''));
+//			enroll();
+//		})
+//		
+//		function enroll(){
+//
+//		$(".enroll_inputs>p").click(function(){
+//			    $(this).addClass('enroll_inputs_ok').siblings('p').removeClass('enroll_inputs_ok')
+//			})
+//		}
+//		
+//		enroll();
+//		function del(e){
+//			e.parentNode.parentNode.remove()
+//		}
+
+            
+            
+            
+            
+//            
+//            $('.jia_name').click(function () {
+//                var i = $("#enroll_sub").prop("outerHTML");
+//                $(".list_content").append(i.replace(/<div class=\"jia_name\">\+<\/div>/, '<div class="reduce_name" onclick="del(this)">-</div>'));
+//                enroll();
+//                getmoney()
+//            })
+//
+//            function enroll() {
+//                $(".enroll_inputs>p").click(function () {
+//                    $(this).addClass('enroll_inputs_ok').siblings('p').removeClass('enroll_inputs_ok')
+//                })
+//            }
+//
+//            enroll();
+//
+//            function del(e) {
+//                e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode)
+//                lessenmoney();
+//            }
+
+
+            //新增人数计算价格
+            function getmoney() {
+                var man = $("#man_count").val();
+                var addman = (man * 1) + 1;
+                $("#man_count").val(addman);
+                var oneprice = $("#onlyone").val();
+                var allmoney = oneprice * addman;
+                $("#allmoney").text(allmoney.toFixed(2));
+            }
+
+            //减少人数计算价格
+            function lessenmoney() {
+                var man = $("#man_count").val();
+                var addman = (man * 1) - 1;
+                $("#man_count").val(addman);
+                var oneprice = $("#onlyone").val();
+                var allmoney = oneprice * addman;
+                $("#allmoney").text(allmoney.toFixed(2));
+            }
+            function checkForm(flag) {
+                $("#formorder input[type='text']").each(function (i, obj) {
+                    if (obj.value == "") {
+                        layer.msg($(obj).attr("placeholder"), {icon: 2, time: 1000});
+                        flag = false;
+                        return false;
+                    }
+                });
+                return flag;
+            }
+
+            $("#wechatpay").click(function () {
+                var flag = true;
+                var flag = checkForm(flag);
+                if (flag != true)
+                    return false;
+
+                var isPay = $(this).attr('data-val');
+                if (isPay != 'true')
+                    return false;
+                $(this).attr('data-val', 'false');
+
+                $.ajax({
+                    url: $("#formorder").attr('data-url'),
+                    data: $("#formorder").serialize(),
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (ret) {
+                        if (ret.status == 1) {
+//                            layer.msg(ret.info, {icon: 6, time: 2000});
+                            console.log(ret);
+                            //接入微信支付
+                            callpay(ret.data.payinfo, ret.data.orderinfo);
+                        } else {
+                            $("#wechatpay").attr('data-val', 'true');
+                            layer.msg(ret.info, {icon: 2, time: 2000});
+                        }
+                    }
+                })
+            })
+
+
+            //调用微信JS api 支付
+            function jsApiCall(jsApiParameters, orderData)
+            {
+                WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest',
+                        $.parseJSON(jsApiParameters), //必须转为json格式  php传过来的是字符串格式
+                        function (res) {
+                            //alert(res.err_code+'&'+res.err_desc+'&'+res.err_msg);
+                            WeixinJSBridge.log(res.err_msg);
+                            $("#wechatpay").attr('data-val', 'true');
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                layer.msg('支付成功', {icon: 6, time: 1000}, function () {
+                                    window.location.href = '/Home/Index/paySuccess?act_id=' + orderData.activity_id + '&order_sn=' + orderData.order_sn;
+                                });
+                            } else {
+                                layer.msg('支付失败', {icon: 2, time: 2000});
+                            }
+                        }
+                );
+            }
+
+            function callpay(jsApidata, orderData)
+            {
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                    }
+                } else {
+                    jsApiCall(jsApidata, orderData);
+                }
+            }
+
+
+        </script>
+    </body>
+</html>

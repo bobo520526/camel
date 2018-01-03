@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>任务列表</title>
+    <include file="Public/header_source"/>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox-title">
+            <h5>权限管理 <small class="m-l-sm">角色管理</small></h5>
+        </div>
+        <!-- Panel Other -->
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <!-- Example Events -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+                                <button type="button" class="btn btn-outline btn-default layer-open-url" id="add-record-btn" data-url="{:U('role_info')}">
+                                    <i class="glyphicon glyphicon-plus" aria-hidden="true">添加角色</i>
+                                </button>
+<!--                                <button type="button" class="btn btn-outline btn-default" id="remove-record-btn" data-list-id="exampleTableEvents" data-ajax-url="{:U('remove')}">
+                                    <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                </button>-->
+                            </div>
+                            <table id="exampleTableEvents" data-mobile-responsive="true" >
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+<script>
+    $(function () {
+
+    //1.初始化Table
+    var oTable = new TableInit();
+            oTable.Init();
+            //2.初始化Button的点击事件
+            /* var oButtonInit = new ButtonInit();
+             oButtonInit.Init(); */
+
+
+    });
+            var TableInit = function () {
+            var oTableInit = new Object();
+                    //初始化Table
+                    oTableInit.Init = function () {
+                    $('#exampleTableEvents').bootstrapTable({
+                    url: '{:U("Admin/role")}', //请求后台的URL（*）
+                            method: 'post', //请求方式（*）
+                            toolbar: '#exampleTableEventsToolbar', //工具按钮用哪个容器
+                            striped: true, //是否显示行间隔色
+                            cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                            pagination: true, //是否显示分页（*）
+                            sortable: true, //是否启用排序
+                            sortOrder: "asc", //排序方式
+                            queryParams: oTableInit.queryParams, //传递参数（*）
+                            sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+                            pageNumber:1, //初始化加载第一页，默认第一页
+                            pageSize: 10, //每页的记录行数（*）
+                            pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+                            strictSearch: true,
+                            clickToSelect: true, //是否启用点击选中行
+                            //height: 780,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                            uniqueId: "role_id", //每一行的唯一标识，一般为主键列
+                            cardView: false, //是否显示详细视图
+                            detailView: false, //是否显示父子表
+                            columns: [
+//                            {
+//                            field: 'state',
+//                                    checkbox: true,
+//                                    formatter:function(){
+//                                    },
+//                            },
+                            {
+                            field: 'role_id',
+                                    title: 'ID',
+                                    sortable:true,
+                            },
+                            {
+                            field: 'role_name',
+                                    title: '角色名称'
+                            },
+                            {
+                            field: 'role_desc',
+                                    title: '描述'
+                            },
+                            {
+                            field: 'caozuo',
+                                    title: '操作',
+                                    formatter:function(_this, value, row, index){
+                                    return '<a href="javascript:;" data-url="{:U("role_info")}?role_id=' + value.role_id + '" class="layer-open-url">编辑</a> | <a href="javascript:;" data-url="{:U("roleDel")}?role_id=' + value.role_id + '" class="layer-open-url">删除</a>';
+                                    },
+                            }
+                            ],
+                            search: true,
+                            showRefresh: true,
+                            showToggle: true,
+                            showColumns: true,
+                            iconSize: "outline",
+                            icons: {
+                            refresh: "glyphicon-repeat",
+                                    toggle: "glyphicon-list-alt",
+                                    columns: "glyphicon-list"
+                            },
+                            //每一行加载执行
+                            rowAttributes:function(ret, i){
+                            //console.log(ret,i);
+                            return;
+                            },
+                            //请求参数
+                            queryParams:function(params){
+                            var params = $.extend(params, {:json_encode(I('get.'))} || {})
+                                    console.log(params);
+                                    return params;
+                            }
+                    });
+                    };
+                    return oTableInit;
+            };
+            $(function(){
+            //应用样式layer-open-url 使用data-url=目标链接
+            $(document).on('click', '.layer-open-url', function(){
+            var url = $(this).data('url');
+                    if (url){
+            layer.open({
+            type:2,
+                    title: '信息',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['90%', '90%'],
+                    content: url //iframe的url
+            });
+            }
+});
+                    //删除
+                    $(document).on('click', '#remove-record-btn', function(){
+            var $table = $("#exampleTableEvents");
+                    var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row.role_id;
+                    });
+                    //询问框
+                    layer.confirm('您确定删除选中记录？', {
+                    btn: ['确定', '取消'] //按钮
+                    }, function(){
+                    TP.POST("{:U('roleDel')}", {role_id:ids}, function(ret){
+                    $table.bootstrapTable('remove', {
+                    field: 'role_id',
+                            values: ids
+                    });
+                            layer.msg('删除成功', {icon:2});
+                    })
+                    }, function(){
+                    //取消操作
+                    });
+            });
+            })
+
+</script>
+
+</body>
+
+</html>
